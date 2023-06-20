@@ -43,6 +43,7 @@ class Offer with _$Offer {
     String? payerType,
     String? payerData,
     bool? payerRequisiteId,
+    String? offersTypeName,
     int? offerDateCreateFrontendTimestamp,
     int? offerStatusUpdateFrontendTimestamp,
     bool? offerFirstCompleteStatusDateFrontendTimestamp,
