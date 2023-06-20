@@ -19,7 +19,7 @@ void main() {
 
       final result = await client.fetchOffers(request);
 
-      expect(result.response?.data?.isNotEmpty ?? false, true);
+      expect(result.response.data.isNotEmpty, true);
     },
   );
   test(
@@ -27,7 +27,7 @@ void main() {
     () async {
       final result = await client.fetchStatuses(1843);
 
-      expect(result.response?.isNotEmpty ?? false, true);
+      expect(result.response.isNotEmpty, true);
     },
   );
 }
