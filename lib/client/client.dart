@@ -16,7 +16,7 @@ abstract class RestClient {
   );
 
   @GET("/offer/all_statuses")
-  Future<StatusesResponse> fetchAllStatuses(
+  Future<StatusesResponse> fetchStatuses(
     @Query('BOARD_ID') int boardId,
   );
 }

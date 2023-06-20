@@ -9,7 +9,7 @@ part 'offer_status.g.dart';
 class StatusesResponse with _$StatusesResponse {
   @JsonSerializable(fieldRename: FieldRename.screamingSnake)
   const factory StatusesResponse({
-    Map<String, Response>? response,
+    required Map<String, OfferStatus> response,
     bool? message,
     int? code,
     double? systemExecTime,
@@ -20,9 +20,9 @@ class StatusesResponse with _$StatusesResponse {
 }
 
 @freezed
-class Response with _$Response {
+class OfferStatus with _$OfferStatus {
   @JsonSerializable(fieldRename: FieldRename.screamingSnake)
-  const factory Response({
+  const factory OfferStatus({
     int? statusId,
     int? boardId,
     String? visualType,
@@ -39,10 +39,10 @@ class Response with _$Response {
     bool? systemAlias,
     List<VisualField>? visualFields,
     dynamic reasons,
-  }) = _Response;
+  }) = _OfferStatus;
 
-  factory Response.fromJson(Map<String, dynamic> json) =>
-      _$ResponseFromJson(json);
+  factory OfferStatus.fromJson(Map<String, dynamic> json) =>
+      _$OfferStatusFromJson(json);
 }
 
 @freezed

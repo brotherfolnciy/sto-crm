@@ -9,7 +9,7 @@ part 'offer.g.dart';
 class OffersResponse with _$OffersResponse {
   @JsonSerializable(fieldRename: FieldRename.screamingSnake)
   const factory OffersResponse({
-    Response? response,
+    required Response response,
     bool? message,
     int? code,
     String? calcRowsNotAvailableForCurrentLimit,
@@ -24,7 +24,7 @@ class OffersResponse with _$OffersResponse {
 class Response with _$Response {
   @JsonSerializable(fieldRename: FieldRename.screamingSnake)
   const factory Response({
-    List<Offer>? data,
+    required List<Offer> data,
     int? totalCount,
   }) = _Response;
 
