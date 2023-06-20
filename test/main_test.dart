@@ -25,7 +25,7 @@ void main() {
   test(
     'Offer Statuses must be fetched',
     () async {
-      final result = await client.fetchAllStatuses(1843);
+      final result = await client.fetchStatuses(1843);
 
       expect(result.response?.isNotEmpty ?? false, true);
     },
