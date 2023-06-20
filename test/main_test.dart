@@ -10,24 +10,16 @@ void main() {
   final client = RestClient(dio);
 
   test(
-    'Offers ',
+    'Offers must be fetched',
     () async {
       const request = FetchOffersRequest(
         limit: 10,
         page: 1,
       );
 
-      final result = await client.fetchOffers(request);
+      final result = await client.fetchOffers(request.toJson());
 
       expect(result.response.data.isNotEmpty, true);
-    },
-  );
-  test(
-    'Offer Statuses must be fetched',
-    () async {
-      final result = await client.fetchStatuses(1843);
-
-      expect(result.response.isNotEmpty, true);
     },
   );
 }

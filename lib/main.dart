@@ -24,26 +24,14 @@ class _MainAppState extends State<MainApp> with SingleTickerProviderStateMixin {
   @override
   void initState() {
     super.initState();
-    cubit.fetchData();
+    cubit.fetchOffers();
   }
 
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
       home: Scaffold(
-        appBar: AppBar(
-          bottom: TabBar(
-            controller: tabs,
-            tabs: const [
-              Tab(
-                text: 'Сделки',
-              ),
-              Tab(
-                text: 'Статусы',
-              )
-            ],
-          ),
-        ),
+        backgroundColor: Colors.grey.shade300,
         body: BlocProvider.value(
           value: cubit,
           child: BlocBuilder<OffersCubit, OffersState>(
@@ -53,38 +41,42 @@ class _MainAppState extends State<MainApp> with SingleTickerProviderStateMixin {
                 loading: () => const Center(
                   child: CircularProgressIndicator(),
                 ),
-                success: (offers, statuses) => TabBarView(
-                  controller: tabs,
-                  children: [
-                    ListView.builder(
-                        itemCount: offers.length,
-                        itemBuilder: (context, index) {
-                          final offer = offers[index];
-                          return ListTile(
-                            title: Text(
-                              '${offer.offerFirstResponsible}',
-                            ),
-                            subtitle: Text(
-                              'ID: ${offer.offerId}',
-                            ),
-                          );
-                        }),
-                    ListView.builder(
-                        itemCount: statuses.length,
-                        itemBuilder: (context, index) {
-                          final statusesList =
-                              statuses.values.map((status) => status).toList();
-                          final status = statusesList[index];
-                          return ListTile(
-                            title: Text(
-                              '${status.title}',
-                            ),
-                            subtitle: Text(
-                              'ID: ${status.statusId}',
-                            ),
-                          );
-                        }),
-                  ],
+                success: (offers) => ListView.builder(
+                  itemCount: offers.length,
+                  itemBuilder: (context, index) {
+                    final offer = offers[index];
+                    return Container(
+                      padding: const EdgeInsets.all(12),
+                      child: Material(
+                        color: Colors.white,
+                        elevation: 1,
+                        borderRadius: BorderRadius.circular(8),
+                        child: Padding(
+                          padding: const EdgeInsets.all(8.0),
+                          child: Column(
+                            crossAxisAlignment: CrossAxisAlignment.start,
+                            children: [
+                              Text(
+                                'ФИО контакта: ${offer.contactTitle}',
+                              ),
+                              Text(
+                                'ID сделки: ${offer.offerId}',
+                              ),
+                              Text(
+                                'Тип сделки: ${offer.offersTypeName}',
+                              ),
+                              Text(
+                                'Название статуса: ${offer.statusName}',
+                              ),
+                              Text(
+                                'Сумма сделки: ${offer.offerSum}',
+                              ),
+                            ],
+                          ),
+                        ),
+                      ),
+                    );
+                  },
                 ),
                 failure: () => Center(
                   child: Column(
@@ -92,7 +84,7 @@ class _MainAppState extends State<MainApp> with SingleTickerProviderStateMixin {
                       const Text('Ошибка'),
                       MaterialButton(
                         onPressed: () {
-                          cubit.fetchData();
+                          cubit.fetchOffers();
                         },
                         child: const Text('Повторить попытку'),
                       ),
