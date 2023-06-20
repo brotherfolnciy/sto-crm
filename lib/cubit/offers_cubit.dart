@@ -4,7 +4,6 @@ import 'package:freezed_annotation/freezed_annotation.dart';
 import 'package:sto_crm/client/client.dart';
 import 'package:sto_crm/dto/request/fetch_offers.dart';
 import 'package:sto_crm/dto/response/offer.dart';
-import 'package:sto_crm/dto/response/offer_status.dart';
 
 part 'offers_state.dart';
 part 'offers_cubit.freezed.dart';
@@ -16,25 +15,21 @@ class OffersCubit extends Cubit<OffersState> {
 
   final RestClient client;
 
-  Future<void> fetchData() async {
+  Future<void> fetchOffers() async {
     emit(const OffersState.loading());
 
     const request = FetchOffersRequest(
       page: 1,
-      limit: 10,
+      limit: 12,
+      requiredFields: ["OFFERS_TYPE_NAME"],
     );
-
-    const boardId = 1843;
 
     try {
       final offersResponse =
-          await client.fetchOffers(request).then((r) => r.response);
-      final statusesResponse =
-          await client.fetchStatuses(boardId).then((r) => r.response);
+          await client.fetchOffers(request.toJson()).then((r) => r.response);
 
       emit(OffersState.success(
         offers: offersResponse.data,
-        statuses: statusesResponse,
       ));
     } on DioException catch (_) {
       emit(const OffersState.failure());

@@ -6,7 +6,6 @@ class OffersState with _$OffersState {
   const factory OffersState.loading() = _Loading;
   const factory OffersState.success({
     required List<Offer> offers,
-    required Map<String, OfferStatus> statuses,
   }) = _Success;
   const factory OffersState.failure() = _Failure;
 }
